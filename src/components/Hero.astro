@@ -1,0 +1,116 @@
+---
+import { Picture } from "astro:assets";
+import Button from "./Button.astro";
+import Icon from "./Icon.astro";
+import { doctors, phones, links, clinic } from "../data/clinic";
+import yurii from "../assets/img/yurii.jpg";
+import iryna from "../assets/img/iryna.jpg";
+import dmytro from "../assets/img/dmytro.jpg";
+const photos = { yurii, iryna, dmytro };
+---
+<section id="hero" class="hero" data-rec="UX-R006">
+  <div class="container">
+    <div class="hero__top">
+      <h1 class="hero__title" data-rec="SE-R011">Родинна стоматологія Підкуймух у&nbsp;центрі Львова</h1>
+      <div class="hero__side">
+        <p class="hero__lead">Юрій, Ірина і Дмитро Підкуймухи — три лікарі однієї родини. Приймаємо на&nbsp;Коперника,&nbsp;62/1 з&nbsp;{clinic.since}&nbsp;року.</p>
+        <div class="hero__actions" data-rec="UX-R001,GA-R004,MA-R001,S-R011">
+          <Button href={phones.booking.href} icon="phone" label={`Подзвонити: ${phones.booking.label}`}>Подзвонити</Button>
+          <Button href={links.telegram} variant="secondary" icon="telegram" external>Написати в&nbsp;Telegram</Button>
+        </div>
+        <p class="hero__addr" data-rec="UX-R004">
+          <span>{clinic.street}, {clinic.city}</span>
+          <a class="text-link" href={links.map} target="_blank" rel="noopener"><Icon name="route" size={18} />Відкрити маршрут</a>
+        </p>
+      </div>
+    </div>
+
+    <div class="lineage" data-draw="hero">
+      <span class="lineage__trunk" aria-hidden="true"></span>
+      <span class="lineage__bar" aria-hidden="true"></span>
+      <ul class="family" role="list" aria-label="Лікарі клініки">
+        {doctors.map((d, i) => (
+          <li class="family__member">
+            <span class="lineage__drop" aria-hidden="true" style={`--i:${i}`}></span>
+            <Picture
+              src={photos[d.key]}
+              formats={["avif", "webp"]}
+              widths={[180, 280, 400, 560]}
+              sizes="(min-width: 1024px) 260px, 30vw"
+              alt={`${d.full}, ${d.role.toLowerCase()}`}
+              class="family__photo"
+              loading="eager"
+              fetchpriority={i === 0 ? "high" : "auto"}
+              quality={70}
+            />
+            <p class="family__name">{d.first}</p>
+            <p class="family__years">{d.years} років досвіду</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero { padding-block: var(--s2) var(--s4); }
+  .hero__top { display: grid; gap: var(--s2); }
+  .hero__title {
+    margin: 0; font-family: var(--font-display); font-weight: 500; font-size: var(--fs-h1);
+    line-height: var(--lh-tight); letter-spacing: var(--track-head); font-variant-numeric: lining-nums;
+    overflow-wrap: break-word; min-width: 0; max-width: 16ch;
+  }
+  .hero__side { display: grid; gap: var(--s2); align-content: end; }
+  .hero__lead { margin: 0; font-size: var(--fs-lead); line-height: 1.4; max-width: 40ch; }
+  .hero__actions { display: grid; gap: 12px; }
+  .hero__addr { margin: 0; display: flex; flex-wrap: wrap; align-items: center; column-gap: var(--s2); row-gap: 0; color: var(--color-muted); font-size: var(--fs-body); }
+
+  /* Signature: the lineage line, from the family name down to the three doctors */
+  .lineage { position: relative; margin-top: var(--s2); --drop: 16px; --trunk: var(--s2); padding-top: var(--trunk); }
+  .lineage__trunk, .lineage__bar, .lineage__drop { position: absolute; background: var(--color-text); }
+  .lineage__trunk { left: 0; top: 0; width: var(--line); height: var(--trunk); transform-origin: top; }
+  .lineage__bar {
+    top: var(--trunk); left: 0; height: var(--line);
+    right: calc((100% - 2 * var(--gap)) / 6); transform-origin: left;
+  }
+  .family { --gap: 12px; position: relative; margin: 0; padding: var(--drop) 0 0; list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gap); }
+  .lineage { --gap: 12px; }
+  .family__member { position: relative; display: grid; justify-items: center; text-align: center; min-width: 0; }
+  .lineage__drop { top: calc(-1 * var(--drop)); left: 50%; width: var(--line); height: var(--drop); transform-origin: top; }
+  :global(.family__photo) { width: 100%; max-width: 260px; aspect-ratio: 4 / 5; height: auto; object-fit: cover; }
+  .family__name { font-variant-numeric: lining-nums; max-width: 100%; margin: var(--s1) 0 0; font-family: var(--font-display); font-weight: 600; font-size: var(--fs-lead); line-height: 1.1; }
+  .family__years { max-width: 100%; margin: 2px 0 0; font-size: var(--fs-cap); color: var(--color-muted); }
+
+  /* Motion 1: the line draws itself once; portraits and text are already in place (UX-R006) */
+  .lineage__trunk, .lineage__bar, .lineage__drop { transition: transform 500ms var(--ease-out); }
+  .lineage__bar { transition-delay: 150ms; }
+  .lineage__drop { transition-duration: 250ms; transition-delay: calc(550ms + var(--i) * 80ms); }
+  :global(.js) .lineage:not(.is-drawn) .lineage__trunk,
+  :global(.js) .lineage:not(.is-drawn) .lineage__drop { transform: scaleY(0); }
+  :global(.js) .lineage:not(.is-drawn) .lineage__bar { transform: scaleX(0); }
+
+  @media (min-width: 560px) {
+    .hero__actions { grid-template-columns: max-content max-content; }
+  }
+  @media (min-width: 768px) {
+    .hero { padding-block: var(--s4) var(--s5); }
+    .hero__top, .hero__side { gap: var(--s3); }
+    .lineage, .family { --gap: var(--s3); }
+    .lineage { --drop: 32px; --trunk: var(--s4); }
+    .family__name { font-size: var(--fs-h2); }
+    .family__years { font-size: var(--fs-body); }
+  }
+  @media (min-width: 1024px) {
+    .hero { padding-block: var(--s3) var(--s4); }
+    .lineage { --trunk: var(--s4); --drop: 24px; margin-top: var(--s1); }
+    .hero__top { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--s3); align-items: end; }
+    .hero__title { grid-column: 1 / span 8; max-width: none; }
+    .hero__side { grid-column: 9 / span 4; }
+    .hero__actions { grid-template-columns: 1fr; }
+    .lineage__trunk, .lineage__bar, .lineage__drop { transition-duration: 700ms; }
+    .lineage__drop { transition-duration: 250ms; transition-delay: calc(750ms + var(--i) * 80ms); }
+  }
+  @media (min-width: 1024px) and (max-height: 940px) {
+    :global(.family__photo) { max-width: 232px; }
+  }
+</style>

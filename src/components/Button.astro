@@ -1,0 +1,13 @@
+---
+// Primary / secondary action. Always a real channel (tel:, Telegram) or an in-page anchor.
+import Icon from "./Icon.astro";
+interface Props { href: string; variant?: "primary" | "secondary"; icon?: "phone" | "telegram" | "route"; external?: boolean; rec?: string; class?: string; label?: string }
+const { href, variant = "primary", icon, external = false, rec, class: cls, label } = Astro.props;
+---
+<a
+  class:list={["btn", `btn--${variant}`, cls]}
+  href={href}
+  data-rec={rec}
+  aria-label={label}
+  {...(external ? { target: "_blank", rel: "noopener" } : {})}
+>{icon && <Icon name={icon} class="btn__icon" />}<span><slot /></span></a>

@@ -1,0 +1,120 @@
+---
+import logo from "../assets/img/logo.svg";
+import Icon from "./Icon.astro";
+import FutureLink from "./FutureLink.astro";
+import { phones, links, clinic, SOON } from "../data/clinic";
+const nav = [
+  { href: "#services", label: "Напрями" },
+  { href: "#doctors", label: "Лікарі" },
+  { href: "#prices", label: "Вартість" },
+  { href: "#visit", label: "Контакти" },
+];
+---
+<header class="site-header" data-rec="UX-R005">
+  <div class="container site-header__in">
+    <a class="logo" href="#top" aria-label="DR. PIDKUIMUKHA — на початок сторінки">
+      <img src={logo.src} width="704" height="190" alt="DR. PIDKUIMUKHA, стоматологічна клініка" />
+    </a>
+    <nav class="nav" aria-label="Розділи сторінки">
+      <ul role="list">
+        {nav.map((n) => <li><a class="nav__link" href={n.href}>{n.label}</a></li>)}
+      </ul>
+    </nav>
+    <div class="site-header__actions">
+      <span class="lang"><span class="lang__current" aria-current="true">UA</span><span aria-hidden="true">/</span><FutureLink note={SOON} arrow={false} class="lang__en">EN</FutureLink></span>
+      <a class="site-header__phone" href={phones.booking.href}>{phones.booking.short}</a>
+      <a class="btn btn--primary site-header__call" href={phones.booking.href} aria-label={`Подзвонити: ${phones.booking.label}`}>
+        <Icon name="phone" class="btn__icon" /><span class="site-header__call-text">Подзвонити</span>
+      </a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu" aria-label="Відкрити меню">
+        <Icon name="menu" size={24} class="menu-btn__open" /><Icon name="close" size={24} class="menu-btn__close" />
+      </button>
+    </div>
+  </div>
+  <div class="menu" id="menu" hidden>
+    <div class="container menu__in">
+      <nav aria-label="Меню">
+        <ul role="list" class="menu__nav">
+          {nav.map((n) => <li><a class="menu__link" href={n.href}>{n.label}</a></li>)}
+        </ul>
+      </nav>
+      <div class="menu__contacts">
+        <p class="menu__phone"><a href={phones.booking.href}>{phones.booking.label}</a> <span class="menu__note">{phones.booking.note}</span></p>
+        <p class="menu__phone"><a href={phones.city.href}>{phones.city.label}</a> <span class="menu__note">{phones.city.note}</span></p>
+        <p><a class="menu__tg" href={links.telegram} target="_blank" rel="noopener"><Icon name="telegram" />Написати в Telegram</a></p>
+        <p class="menu__addr">{clinic.city}, {clinic.street}</p>
+        <p class="menu__lang"><span aria-current="true">UA</span> <span aria-hidden="true">/</span> <FutureLink note={SOON} arrow={false}>EN</FutureLink></p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<style>
+  .site-header { position: sticky; top: 0; z-index: 50; background: var(--color-bg); border-bottom: 1px solid var(--color-surface); }
+  .site-header__in { height: var(--header-h); display: flex; align-items: center; gap: var(--s3); }
+  .logo { display: inline-flex; align-items: center; min-height: var(--tap); flex: none; border-radius: var(--radius); }
+  .logo img { height: 34px; width: auto; }
+  .nav { display: none; }
+  .nav ul { display: flex; gap: var(--s4); margin: 0; padding: 0; list-style: none; }
+  .nav__link, .site-header__phone {
+    position: relative; display: inline-flex; align-items: center; min-height: var(--tap);
+    font-size: var(--fs-body); text-decoration: none; color: var(--color-text);
+  }
+  .nav__link::after, .site-header__phone::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 8px; height: var(--line); background: currentColor;
+    transform: scaleX(0); transform-origin: left; transition: transform var(--dur-fast) var(--ease-out);
+  }
+  .nav__link:hover::after, .site-header__phone:hover::after { transform: scaleX(1); }
+  .site-header__actions { margin-left: auto; display: flex; align-items: center; gap: var(--s2); }
+  .lang { display: none; align-items: center; gap: var(--s1); font-size: var(--fs-cap); color: var(--color-muted); }
+  .lang__current { color: var(--color-text); font-weight: 500; }
+  .lang :global(.lang__en) { min-height: var(--tap); }
+  .site-header__phone { display: none; font-weight: 500; white-space: nowrap; }
+  .site-header__call { width: var(--tap); min-height: var(--tap); height: var(--tap); padding: 0; justify-content: center; }
+  .site-header__call-text { display: none; }
+  .menu-btn {
+    display: none; width: var(--tap); height: var(--tap); padding: 0; align-items: center; justify-content: center;
+    background: transparent; color: var(--color-text); border: var(--line) solid var(--color-text); border-radius: var(--radius); cursor: pointer;
+  }
+  :global(.js) .menu-btn { display: inline-flex; }
+  .menu-btn:active { transform: scale(.96); }
+  .menu-btn :global(.menu-btn__close) { display: none; }
+  .menu-btn[aria-expanded="true"] :global(.menu-btn__open) { display: none; }
+  .menu-btn[aria-expanded="true"] :global(.menu-btn__close) { display: block; }
+
+  .menu { position: fixed; inset: var(--header-h) 0 0 0; background: var(--color-bg); overflow-y: auto; overscroll-behavior: contain; }
+  .menu[hidden] { display: none; }
+  .menu__in { padding-block: var(--s4) var(--s5); display: grid; gap: var(--s4); }
+  .menu__nav { margin: 0; padding: 0; list-style: none; display: grid; gap: var(--s1); }
+  .menu__link {
+    display: flex; align-items: center; min-height: 56px; font-family: var(--font-display); font-weight: 500;
+    font-size: var(--fs-h2); letter-spacing: var(--track-head); text-decoration: none; border-bottom: var(--line) solid var(--color-text);
+  }
+  .menu__contacts { display: grid; gap: var(--s2); }
+  .menu__contacts p { margin: 0; }
+  .menu__phone a { display: inline-flex; align-items: center; min-height: var(--tap); font-size: var(--fs-lead); font-weight: 500; }
+  .menu__note { color: var(--color-muted); font-size: var(--fs-cap); margin-left: var(--s1); }
+  .menu__tg { display: inline-flex; align-items: center; gap: var(--s1); min-height: var(--tap); }
+  .menu__addr { color: var(--color-muted); }
+  .menu__lang { display: flex; align-items: center; gap: var(--s1); }
+
+  @media (min-width: 768px) {
+    .site-header__call { width: auto; padding-inline: var(--s3); }
+    .site-header__call-text { display: inline; }
+  }
+  @media (min-width: 1024px) {
+    .logo img { height: 40px; }
+    .nav { display: block; margin-left: var(--s4); }
+    .lang { display: inline-flex; }
+    .site-header__phone { display: inline-flex; }
+    /* quiet call button: the hero already carries the filled primary */
+    .site-header__call { background: transparent; color: var(--color-text); }
+    .site-header__call:hover { background: var(--color-surface); }
+    :global(.js) .menu-btn { display: none; }
+    .menu { display: none !important; }
+  }
+  @media (min-width: 1024px) and (max-width: 1199px) {
+    .nav ul { gap: var(--s3); }
+    .site-header__phone { display: none; }
+  }
+</style>

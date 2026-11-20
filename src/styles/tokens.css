@@ -1,0 +1,56 @@
+/* Hallmark · shape: rodovid-tree · genre: modern-minimal · theme: custom · job: book · idea: "Родовід: одна фамилия — три врача — вся семья пациента, линия рода держит каждый блок" · vibe: "тепла родинна точність, білий аркуш, графіт і лаванда"
+ * paper: #FFFFFF · accent: #8EA2EA (field only) · display: Vollkorn · body: Fixel Text · hero: H1 на всю ширину, справа кнопки; ниже линия рода опускается к трём портретам на белом · nav: white bar, 4 anchors + 067 + call · footer: graphite, continues visit · imagery: client photos · signature: линия рода от фамилии к врачам и к семье пациента
+ * axes: light/roman-serif/chromatic-lavender · surface: absolute · posture: committed · contrast: pass · fold: pass · v2.0.0 */
+/* Hallmark · pre-emit critique: P4 H4 E4 S4 R4 V4 · weakest: H (hero carries three portraits under the headline), kept to H1 + one sentence + two actions + address; names are captions, not headings */
+/* Hallmark · waive 7b · paper #FFFFFF, surface: absolute in the stamp · портрети лікарів Юрій, Ірина, Дмитро зняті на чистому білому: on a tinted paper the three photos would read as pale rectangles, so the doctors stand on the white sheet */
+/* Hallmark · waive 78 · section heads at 34px under the 76px hero head · concept.md шкала 14 · 17 · 22 · 34 · 76: заголовки розділів спокійні, бо акцент кожного блоку — поле кольору, цифри стажу 96px і суми цін, not the heading */
+/* Hallmark · waive 44c · theme: custom, три портрети стоять під заголовком · Юрій, Ірина і Дмитро Підкуймухи hang from the lineage line that drops from the family name in the H1; portraits beside the text would break the family tree */
+/* Hallmark · answer F4 · the second filled recipe is the same primary inverted for the graphite visit field (concept.md «Кнопка primary … на графитовом поле — заливка #8EA2EA»); one primary per screen */
+/* Line 1 of this file is the Hallmark stamp (docs/process/hallmark.md), filled from design/concept.md. */
+/* Client design tokens — only from design/concept.md (veon-concept: colors, fonts).
+   Breakpoints (media queries cannot read custom properties): 768px — tablet, 1024px — desktop. */
+:root {
+  /* colour roles (concept.md «Палитра») */
+  --color-bg: #FFFFFF;          /* paper */
+  --color-text: #1F2126;        /* graphite: text, lineage line, primary button, visit + footer field */
+  --color-accent: #8EA2EA;      /* lavender: patient-family fields only; text/focus only on graphite */
+  --color-muted: #5A5E6B;       /* captions on white and surface only */
+  --color-surface: #F3F4F8;     /* care field */
+  --color-on-dark: var(--color-bg);
+  --color-accent-ink: var(--color-text);   /* text, lines and icons on the lavender field (6.52:1) */
+  --color-focus: var(--color-text);
+  --color-btn-hover: color-mix(in oklab, var(--color-text) 86%, var(--color-accent));
+
+  /* type (Vollkorn + Fixel Text, self-hosted) */
+  --font-display: "Vollkorn", "Vollkorn Fallback", Georgia, serif;
+  --font-body: "Fixel Text", "Fixel Fallback", Arial, sans-serif;
+  --fs-cap: clamp(0.8125rem, 0.78rem + 0.1vw, 0.875rem);   /* 13 → 14 */
+  --fs-body: clamp(1rem, 0.96rem + 0.12vw, 1.0625rem);     /* 16 → 17 */
+  --fs-lead: clamp(1.1875rem, 1.1rem + 0.3vw, 1.375rem);   /* 19 → 22 */
+  --fs-h2: clamp(1.625rem, 1.35rem + 0.9vw, 2.125rem);     /* 26 → 34 */
+  --fs-h1: clamp(2.25rem, 1.1rem + 4.4vw, 4.75rem);        /* 36 → 76 */
+  --fs-num: clamp(3.5rem, 2.6rem + 3vw, 6rem);             /* 56 → 96 */
+  --lh-tight: 1.06;
+  --lh-text: 1.55;
+  --track-head: -0.015em;
+
+  /* rhythm on 8 */
+  --s1: 0.5rem; --s2: 1rem; --s3: 1.5rem; --s4: 2.5rem; --s5: 4rem; --s6: 6.5rem; --s7: 10rem;
+  --section-y: clamp(4rem, 2.6rem + 5vw, 8rem);
+  --gutter: clamp(1.25rem, 0.35rem + 4.1vw, 5rem);         /* 20 / 40 / 80 */
+  --space: var(--gutter);
+  --container: 1280px;
+  --header-h: 64px;
+
+  /* shape and line */
+  --radius: 6px;
+  --line: 1.5px;
+  --tap: 44px;
+  --btn-h: 52px;
+
+  /* motion */
+  --ease-out: cubic-bezier(.2, .7, .2, 1);
+  --dur: 600ms;
+  --dur-fast: 200ms;
+}
+@media (min-width: 1024px) { :root { --header-h: 72px; } }

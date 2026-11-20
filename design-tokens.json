@@ -1,0 +1,8 @@
+{
+  "color": { "semantic": { "bg": "#FFFFFF", "text": "#1F2126", "accent": "#8EA2EA", "muted": "#5A5E6B", "surface": "#F3F4F8" } },
+  "contrast-pairs": [
+    ["text", "bg"], ["muted", "bg"], ["text", "surface"], ["muted", "surface"],
+    ["text", "accent"], ["bg", "text"], ["accent", "text"], ["bg", "text", "large"],
+    ["text", "accent", "large"], ["accent", "text", "large"]
+  ]
+}

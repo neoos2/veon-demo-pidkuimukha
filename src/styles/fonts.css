@@ -1,0 +1,26 @@
+/* Self-hosted fonts, subset to Latin + Ukrainian Cyrillic + typographic punctuation + ₴ (pyftsubset).
+   Vollkorn — SIL OFL 1.1 (google/fonts, static instances 500/600 from the variable font).
+   Fixel Text — SIL OFL 1.1 (MacPaw/Fixel, fonts/webfonts). */
+@font-face {
+  font-family: "Fixel Text";
+  src: url("../assets/fonts/fixel-text-regular.woff2") format("woff2");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Fixel Text";
+  src: url("../assets/fonts/fixel-text-medium.woff2") format("woff2");
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Vollkorn";
+  src: url("../assets/fonts/vollkorn-500.woff2") format("woff2");
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Vollkorn";
+  src: url("../assets/fonts/vollkorn-600.woff2") format("woff2");
+  font-weight: 600; font-style: normal; font-display: swap;
+}
+/* Metric fallbacks: keep line breaks close while the web fonts load (CLS). */
+@font-face { font-family: "Vollkorn Fallback"; src: local("Georgia"), local("Times New Roman"); size-adjust: 97%; ascent-override: 95%; descent-override: 30%; }
+@font-face { font-family: "Fixel Fallback"; src: local("Arial"), local("Helvetica"); size-adjust: 101%; }

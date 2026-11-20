@@ -1,0 +1,19 @@
+---
+import Base from "../layouts/Base.astro";
+import Button from "../components/Button.astro";
+import { phones } from "../data/clinic";
+---
+<Base lang="uk" title="Сторінку не знайдено — Стоматологія Підкуймух" description="Такої сторінки немає. Поверніться на головну або зателефонуйте до клініки.">
+  <section class="container nf">
+    <h1 class="h2">Такої сторінки немає</h1>
+    <p class="lead">Поверніться на головну або зателефонуйте нам: {phones.booking.label}.</p>
+    <div class="nf__actions">
+      <Button href={import.meta.env.BASE_URL} variant="secondary">На головну</Button>
+      <Button href={phones.booking.href} icon="phone">Подзвонити</Button>
+    </div>
+  </section>
+</Base>
+<style>
+  .nf { padding-block: var(--s6); display: grid; gap: var(--s3); justify-items: start; }
+  .nf__actions { display: flex; flex-wrap: wrap; gap: 12px; }
+</style>

@@ -1,0 +1,73 @@
+---
+import FutureLink from "./FutureLink.astro";
+import { branches, SOON } from "../data/clinic";
+const lens = [40, 40, 40, 40]; // equal drops: branch titles share one baseline (review cycle 1)
+---
+<section id="services" class="services field-accent section" aria-labelledby="services-title" data-rec="UX-R008">
+  <div class="container">
+    <div class="services__head">
+      <h2 class="h2" id="services-title">Лікуємо всю родину</h2>
+      <p class="lead">Від молочних зубів дитини до імплантації для батьків — одна клініка на&nbsp;Коперника, 62/1.</p>
+    </div>
+    <ul class="branches" role="list" data-draw="services">
+      {branches.map((b, i) => (
+        <li class="branch" style={`--len:${lens[i]}px; --i:${i}`}>
+          <span class="branch__line" aria-hidden="true"></span>
+          <h3 class="h3 branch__title">{b.title}</h3>
+          <p class="branch__text">{b.text}</p>
+          <ul class="branch__items" role="list">
+            {b.items.map((it) => (
+              <li data-rec={it.rec}>
+                <FutureLink note={SOON}>{it.name}</FutureLink>
+                {it.text && <span class="branch__note">{it.text}</span>}
+              </li>
+            ))}
+          </ul>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .services__head { display: grid; gap: var(--s2); }
+  .services__head .lead { max-width: 44ch; }
+  .branches { --tick: var(--s3); position: relative; margin: var(--s4) 0 0; padding: 0 0 0 var(--tick); display: grid; gap: var(--s4); }
+  .branch { position: relative; min-width: 0; }
+  /* mobile: one trunk on the left, a short tick to every branch */
+  .branch::before {
+    content: ""; position: absolute; left: calc(-1 * var(--tick)); top: 0; bottom: calc(-1 * var(--s4)); width: var(--line);
+    background: var(--color-accent-ink); transform-origin: top; transition: transform 400ms var(--ease-out);
+  }
+  .branch:last-child::before { bottom: auto; height: 0.85em; }
+  .branch__line {
+    position: absolute; left: calc(-1 * var(--tick)); top: 0.8em; width: calc(var(--tick) - 6px); height: var(--line);
+    background: var(--color-accent-ink); transform-origin: left; transition: transform 300ms var(--ease-out); transition-delay: calc(250ms + var(--i) * 80ms);
+  }
+  .branch__title { font-size: var(--fs-h2); font-weight: 500; letter-spacing: var(--track-head); }
+  .branch__text { margin: var(--s1) 0 0; max-width: 32ch; }
+  .branch__items { margin: var(--s2) 0 0; padding: 0; display: grid; gap: 0; }
+  .branch__items li { display: grid; }
+  .branch__note { font-size: var(--fs-cap); line-height: 1.35; margin-bottom: var(--s1); }
+  .services :global(.future-link) { color: var(--color-accent-ink); }
+
+  :global(.js) .branches:not(.is-drawn) .branch::before { transform: scaleY(0); }
+  :global(.js) .branches:not(.is-drawn) .branch__line { transform: scaleX(0); }
+
+  @media (min-width: 1024px) {
+    .services__head { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--s3); align-items: end; }
+    .services__head .h2 { grid-column: 1 / span 5; }
+    .services__head .lead { grid-column: 7 / span 6; }
+    .branches { --gap: var(--s3); padding: 0; margin-top: var(--s5); grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--gap); align-items: start; }
+    /* desktop: the bar runs along the top, every branch drops by its own length */
+    .branches::before {
+      content: ""; position: absolute; left: 0; top: 0; height: var(--line);
+      right: calc((100% - 3 * var(--gap)) / 4 - var(--line)); background: var(--color-accent-ink);
+      transform-origin: left; transition: transform 600ms var(--ease-out);
+    }
+    :global(.js) .branches:not(.is-drawn)::before { transform: scaleX(0); }
+    .branch { padding-top: calc(var(--len) + var(--s2)); }
+    .branch::before, .branch:last-child::before { left: 0; top: 0; bottom: auto; height: var(--len); transition-delay: calc(400ms + var(--i) * 80ms); }
+    .branch__line { display: none; }
+  }
+</style>

@@ -1,0 +1,25 @@
+---
+import Button from "./Button.astro";
+import { phones, links } from "../data/clinic";
+---
+<div class="callbar" data-rec="UX-R005">
+  <Button href={phones.booking.href} icon="phone" label={`Подзвонити: ${phones.booking.label}`}>Подзвонити</Button>
+  <Button href={links.telegram} variant="secondary" icon="telegram" external>Telegram</Button>
+</div>
+
+<style>
+  .callbar {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 40;
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s1);
+    padding: var(--s1) var(--gutter) calc(var(--s1) + env(safe-area-inset-bottom));
+    background: var(--color-bg); border-top: var(--line) solid var(--color-text);
+    transition: transform 250ms var(--ease-out), visibility 0s linear 0s;
+  }
+  .callbar :global(.btn) { padding-inline: var(--s2); }
+  :global(.js) .callbar.is-armed:not(.is-on) { transform: translateY(110%); visibility: hidden; transition: transform 250ms var(--ease-out), visibility 0s linear 250ms; }
+  :global(body) { padding-bottom: calc(var(--btn-h) + 2 * var(--s1) + 2px); }
+  @media (min-width: 768px) {
+    .callbar { display: none; }
+    :global(body) { padding-bottom: 0; }
+  }
+</style>

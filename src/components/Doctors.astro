@@ -1,0 +1,59 @@
+---
+import { Image } from "astro:assets";
+import Button from "./Button.astro";
+import { doctors, phones, clinic } from "../data/clinic";
+import team from "../assets/img/team-ct.jpg";
+---
+<section id="doctors" class="doctors section" aria-labelledby="doctors-title" data-rec="UX-R003,S-R012">
+  <div class="container doctors__grid">
+    <div class="doctors__head">
+      <h2 class="h2" id="doctors-title">Одне прізвище — три лікарі</h2>
+    </div>
+    <figure class="doctors__photo">
+      <Image src={team} widths={[360, 560, 737]} sizes="(min-width: 1024px) 560px, 100vw" formats={["avif", "webp"]} alt="Лікарі клініки разом розглядають КТ-знімки" loading="lazy" quality={72} />
+      <figcaption class="muted">Ірина, Юрій і Дмитро Підкуймухи над КТ-знімками.</figcaption>
+    </figure>
+    <ol class="doctors__list" role="list">
+      {doctors.map((d) => (
+        <li class="doc">
+          <p class="doc__years"><span class="doc__num">{d.years}</span> <span class="doc__unit">років досвіду</span></p>
+          <h3 class="h3 doc__name">{d.full}</h3>
+          <p class="doc__role">{d.role}</p>
+          {d.extra && <p class="doc__extra muted">{d.extra}</p>}
+        </li>
+      ))}
+    </ol>
+    <div class="doctors__foot">
+      <p class="doctors__sum">Понад 70 років спільного досвіду. З&nbsp;{clinic.since} року&nbsp;— у&nbsp;центрі Львова.</p>
+      <Button href={phones.booking.href} icon="phone" label={`Подзвонити: ${phones.booking.label}`}>Подзвонити</Button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .doctors__grid { display: grid; gap: var(--s4); }
+  .doctors__photo { margin: 0; display: grid; gap: var(--s1); }
+  .doctors__photo :global(img) { width: 100%; max-width: 560px; height: auto; }
+  .doctors__photo figcaption { font-size: var(--fs-cap); max-width: 560px; }
+  .doctors__list { margin: 0; padding: 0; display: grid; gap: var(--s4); }
+  .doc { display: grid; gap: 4px; padding-top: var(--s2); border-top: var(--line) solid var(--color-text); }
+  .doc__years { margin: 0; display: flex; align-items: baseline; gap: var(--s1); }
+  .doc__num {
+    font-family: var(--font-display); font-weight: 500; font-size: var(--fs-num); line-height: .9;
+    font-variant-numeric: lining-nums tabular-nums; letter-spacing: -0.02em;
+  }
+  .doc__unit { font-size: var(--fs-body); }
+  .doc__name { font-size: var(--fs-h2); font-weight: 500; letter-spacing: var(--track-head); margin-top: var(--s1); }
+  .doc__role, .doc__extra { margin: 0; }
+  .doc__extra { font-size: var(--fs-cap); max-width: 40ch; }
+  .doctors__foot { display: grid; gap: var(--s3); justify-items: start; }
+  .doctors__sum { font-variant-numeric: lining-nums; margin: 0; font-family: var(--font-display); font-weight: 500; font-size: var(--fs-h2); line-height: 1.15; max-width: 24ch; letter-spacing: var(--track-head); }
+
+  @media (min-width: 1024px) {
+    .doctors__grid { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--s3); row-gap: var(--s5); align-items: start; }
+    .doctors__head { grid-column: 1 / -1; }
+    .doctors__photo { grid-column: 1 / span 6; position: sticky; top: calc(var(--header-h) + var(--s3)); }
+    .doctors__list { grid-column: 8 / span 5; }
+    .doctors__foot { grid-column: 8 / span 5; }
+  }
+</style>

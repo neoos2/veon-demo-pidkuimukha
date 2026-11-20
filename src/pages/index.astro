@@ -1,0 +1,46 @@
+---
+import Base from "../layouts/Base.astro";
+import Header from "../components/Header.astro";
+import Hero from "../components/Hero.astro";
+import Services from "../components/Services.astro";
+import Doctors from "../components/Doctors.astro";
+import Prices from "../components/Prices.astro";
+import Care from "../components/Care.astro";
+import Visit from "../components/Visit.astro";
+import Footer from "../components/Footer.astro";
+import CallBar from "../components/CallBar.astro";
+import { clinic, phones, links, doctors } from "../data/clinic";
+
+const title = "Стоматологія Підкуймух у Львові — Коперника, 62/1";
+const description = "Родинна стоматологічна клініка в центрі Львова з 2003 року. Лікарі Юрій, Ірина й Дмитро Підкуймухи. Терапія, імплантація, дитяча стоматологія.";
+
+// SE-R011: Dentist with address, phones and socials; no openingHours (not confirmed), no url (new domain not decided).
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Dentist",
+  name: clinic.name,
+  foundingDate: String(clinic.since),
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: clinic.street,
+    addressLocality: clinic.city,
+    addressCountry: "UA",
+  },
+  telephone: [phones.booking.href.replace("tel:", ""), phones.city.href.replace("tel:", "")],
+  sameAs: [links.instagram, links.facebook, links.telegram],
+  employee: doctors.map((d) => ({ "@type": "Person", name: d.full, jobTitle: d.role })),
+  paymentAccepted: "Готівка, Visa, Mastercard, розстрочка monobank, ПриватБанк, страхові компанії",
+};
+---
+<Base lang="uk" title={title} description={description}>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  <Header slot="header" />
+  <Hero />
+  <Services />
+  <Doctors />
+  <Prices />
+  <Care />
+  <Visit />
+  <Footer slot="footer" />
+  <CallBar slot="footer" />
+</Base>

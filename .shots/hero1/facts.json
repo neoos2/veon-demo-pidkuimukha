@@ -1,0 +1,116 @@
+{
+  "start_url": "http://localhost:4321/",
+  "captured_at": "2026-11-20T11:48:16.631Z",
+  "browser": "157.0.8103.38",
+  "site": {
+    "/robots.txt": {
+      "status": 404,
+      "location": null
+    },
+    "/sitemap.xml": {
+      "status": 404,
+      "location": null
+    },
+    "security_headers": {
+      "strict-transport-security": null,
+      "content-security-policy": null,
+      "x-content-type-options": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "permissions-policy": null
+    },
+    "server": null
+  },
+  "pages": [
+    {
+      "url": "http://localhost:4321/",
+      "slug": "home",
+      "desktop": {
+        "status": 200,
+        "final_url": "http://localhost:4321/",
+        "load_ms_approx": 2376,
+        "console_errors": [
+          "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        ],
+        "title": "Стоматологія Підкуймух у Львові — Коперника, 62/1",
+        "description": "Родинна стоматологічна клініка в центрі Львова з 2003 року. Лікарі Юрій, Ірина й Дмитро Підкуймухи. Терапія, імплантація, дитяча стоматологія.",
+        "robots_meta": "noindex",
+        "lang": "uk",
+        "canonical": null,
+        "viewport_meta": "width=device-width, initial-scale=1",
+        "h1": [
+          "Родинна стоматологія Підкуймух у центрі Львова"
+        ],
+        "headings_count": {
+          "h2": 0,
+          "h3": 0
+        },
+        "og": {
+          "title": true,
+          "image": false
+        },
+        "jsonld_types": [
+          "Dentist"
+        ],
+        "images": 4,
+        "images_without_alt": 0,
+        "forms": 0,
+        "tel_links": 5,
+        "mailto_links": 0,
+        "messenger_links": 2,
+        "words": 66,
+        "horizontal_overflow_px": 0,
+        "trackers": [],
+        "screens": {
+          "fold": "screens/home-desktop-fold.png",
+          "full": "screens/home-desktop-full.png",
+          "sections": [],
+          "page_height_px": 978,
+          "full_cropped": false
+        }
+      },
+      "mobile": {
+        "status": 200,
+        "final_url": "http://localhost:4321/",
+        "load_ms_approx": 2090,
+        "console_errors": [],
+        "title": "Стоматологія Підкуймух у Львові — Коперника, 62/1",
+        "description": "Родинна стоматологічна клініка в центрі Львова з 2003 року. Лікарі Юрій, Ірина й Дмитро Підкуймухи. Терапія, імплантація, дитяча стоматологія.",
+        "robots_meta": "noindex",
+        "lang": "uk",
+        "canonical": null,
+        "viewport_meta": "width=device-width, initial-scale=1",
+        "h1": [
+          "Родинна стоматологія Підкуймух у центрі Львова"
+        ],
+        "headings_count": {
+          "h2": 0,
+          "h3": 0
+        },
+        "og": {
+          "title": true,
+          "image": false
+        },
+        "jsonld_types": [
+          "Dentist"
+        ],
+        "images": 4,
+        "images_without_alt": 0,
+        "forms": 0,
+        "tel_links": 5,
+        "mailto_links": 0,
+        "messenger_links": 2,
+        "words": 48,
+        "horizontal_overflow_px": 0,
+        "screens": {
+          "fold": "screens/home-mobile-fold.png",
+          "full": "screens/home-mobile-full.png",
+          "sections": [],
+          "page_height_px": 879,
+          "full_cropped": false
+        }
+      }
+    }
+  ],
+  "errors": []
+}

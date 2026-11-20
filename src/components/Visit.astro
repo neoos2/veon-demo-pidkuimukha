@@ -1,0 +1,74 @@
+---
+import Button from "./Button.astro";
+import Icon from "./Icon.astro";
+import { clinic, phones, links } from "../data/clinic";
+---
+<section id="visit" class="visit on-dark section" aria-labelledby="visit-title">
+  <div class="container visit__grid">
+    <div class="visit__where" data-rec="UX-R004">
+      <h2 class="h2" id="visit-title">Візит</h2>
+      <p class="visit__addr">{clinic.street}</p>
+      <p class="visit__city">{clinic.city}, {clinic.district}</p>
+      <a class="text-link" href={links.map} target="_blank" rel="noopener" data-rec="UX-R012"><Icon name="route" size={18} />Відкрити маршрут</a>
+    </div>
+    <div class="visit__call">
+      <p class="visit__phone visit__phone--main">
+        <a href={phones.booking.href}>{phones.booking.label}</a>
+        <span class="visit__note">{phones.booking.note}</span>
+      </p>
+      <p class="visit__phone">
+        <a href={phones.city.href}>{phones.city.label}</a>
+        <span class="visit__note">{phones.city.note}</span>
+      </p>
+      <div class="visit__actions">
+        <Button href={phones.booking.href} icon="phone" label={`Подзвонити: ${phones.booking.label}`}>Подзвонити</Button>
+        <Button href={links.telegram} variant="secondary" icon="telegram" external>Написати в&nbsp;Telegram</Button>
+      </div>
+      <ul class="visit__social" role="list">
+        <li><a class="text-link" href={links.instagram} target="_blank" rel="noopener">Instagram</a></li>
+        <li><a class="text-link" href={links.facebook} target="_blank" rel="noopener">Facebook</a></li>
+      </ul>
+    </div>
+    <p class="visit__family"><span class="visit__line" aria-hidden="true"></span>Клініка родини Підкуймух</p>
+  </div>
+</section>
+
+<style>
+  .visit { padding-bottom: var(--s5); }
+  .visit__grid { display: grid; gap: var(--s5); }
+  .visit__where { display: grid; gap: var(--s1); justify-items: start; }
+  .visit__addr {
+    font-variant-numeric: lining-nums;
+    margin: var(--s2) 0 0; font-family: var(--font-display); font-weight: 500; font-size: var(--fs-h1);
+    line-height: var(--lh-tight); letter-spacing: var(--track-head); max-width: 14ch; overflow-wrap: break-word; min-width: 0;
+  }
+  .visit__city { margin: 0; font-size: var(--fs-lead); }
+  .visit__call { display: grid; gap: var(--s2); align-content: start; }
+  .visit__phone { margin: 0; display: flex; flex-wrap: wrap; align-items: baseline; column-gap: var(--s2); }
+  .visit__phone a {
+    display: inline-flex; align-items: center; min-height: var(--tap); font-weight: 500; font-size: var(--fs-lead);
+    text-decoration: none; color: var(--color-on-dark);
+    border-bottom: var(--line) solid transparent; transition: border-color var(--dur-fast) var(--ease-out);
+  }
+  .visit__phone a:hover { border-color: currentColor; }
+  .visit__phone--main a { font-variant-numeric: lining-nums tabular-nums; font-family: var(--font-display); font-size: var(--fs-h2); color: var(--color-accent); }
+  .visit__note { font-size: var(--fs-cap); }
+  .visit__actions { display: grid; gap: 12px; margin-top: var(--s2); }
+  .visit__social { margin: 0; padding: 0; display: flex; gap: var(--s4); }
+  .visit__family { margin: 0; display: flex; align-items: center; gap: var(--s2); font-family: var(--font-display); font-size: var(--fs-lead); }
+  .visit__line { width: var(--s5); height: var(--line); background: var(--color-accent); flex: none; }
+
+  @media (min-width: 560px) {
+    .visit__actions { grid-template-columns: max-content max-content; }
+  }
+  @media (min-width: 1024px) {
+    .visit__grid { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--s3); }
+    .visit__where { grid-column: 1 / span 7; }
+    .visit__call { grid-column: 8 / span 5; padding-top: var(--s5); min-width: 0; }
+    .visit__actions { grid-template-columns: 1fr; }
+    .visit__family { grid-column: 1 / -1; }
+  }
+  @media (min-width: 1360px) {
+    .visit__actions { grid-template-columns: max-content max-content; }
+  }
+</style>

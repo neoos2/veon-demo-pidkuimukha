@@ -1,0 +1,45 @@
+---
+import FutureLink from "./FutureLink.astro";
+import { equipment, SOON } from "../data/clinic";
+---
+<section id="care" class="care section" aria-labelledby="care-title">
+  <div class="container care__grid">
+    <div class="care__head">
+      <h2 class="h2" id="care-title">Безпека та обладнання</h2>
+      <blockquote class="care__quote">
+        <p>«Наше завдання — ваша безпека та здоров’я… використовуємо лише перевірені системи дезінфекції й обробки стоматологічного обладнання Melag».</p>
+      </blockquote>
+      <FutureLink note={SOON}>Детальніше про клініку</FutureLink>
+    </div>
+    <ul class="care__list" role="list">
+      {equipment.map((e) => (
+        <li class="gear">
+          <p class="gear__brand">{e.brand}</p>
+          <p class="gear__text muted">{e.text}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .care { background: var(--color-surface); }
+  .care__grid { display: grid; gap: var(--s4); }
+  .care__head { display: grid; gap: var(--s3); align-content: start; justify-items: start; }
+  .care__quote { margin: 0; padding-left: var(--s3); border-left: var(--line) solid var(--color-text); max-width: 40ch; }
+  .care__quote p { margin: 0; font-size: var(--fs-lead); line-height: 1.45; }
+  .care__list { margin: 0; padding: 0; display: grid; gap: 0; }
+  .gear { padding-block: var(--s2); border-top: 1px solid var(--color-muted); display: grid; gap: 2px; }
+  .gear:last-child { border-bottom: 1px solid var(--color-muted); }
+  .gear__brand { font-variant-numeric: lining-nums; margin: 0; font-family: var(--font-display); font-weight: 500; font-size: var(--fs-h2); line-height: 1.1; letter-spacing: var(--track-head); }
+  .gear__text { margin: 0; }
+
+  @media (min-width: 768px) {
+    .gear { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); align-items: baseline; column-gap: var(--s3); }
+  }
+  @media (min-width: 1024px) {
+    .care__grid { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--s3); }
+    .care__head { grid-column: 1 / span 5; }
+    .care__list { grid-column: 7 / span 6; }
+  }
+</style>
